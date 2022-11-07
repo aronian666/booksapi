@@ -24,11 +24,17 @@ const lendSchema = new mongoose.Schema({
     message: String
 }, { timestamps: true })
 
-lendSchema.post("save", async function () {
+lendSchema.pre("save", async function () {
     const book = await Book.findById(this.book)
     if (this.status == "Prestado") book.count--
     if (this.status === "Devuelto") book.count++
     book.save()
 })
-
+lendSchema.pre("findOneAndUpdate", async function (next) {
+    const book = await Book.findById(this._update.book)
+    if (this._update.status == "Prestado") book.count--
+    if (this._update.status === "Devuelto") book.count++
+    await book.save()
+    next()
+})
 export default mongoose.model("Lend", lendSchema)
