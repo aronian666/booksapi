@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "@apollo/server": "^4.0.3",
+    "graphql": "^16.6.0",
+    "mongoose": "^6.7.0"
+  },
+  "name": "booksapi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
