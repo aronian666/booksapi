@@ -7,6 +7,9 @@
   "name": "booksapi",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js"
