@@ -12,16 +12,24 @@ const typeDefs = `
         createdAt: String
         updatedAt: String
     }
+    type Editorial {
+        _id: ID!
+        name: String!
+        createdAt: String
+        updatedAt: String
+    }
     type Book {
         _id: ID!
         name: String!
         author: Author!
         count: Int!
         category: Category!
+        editorial: Editorial
         status: String!
         lends: LendSearch
         createdAt: String
         updatedAt: String
+
     }
     type Category {
         _id: ID!
@@ -70,6 +78,10 @@ const typeDefs = `
         results: [Lend]
         count: Int!
     }
+    type EditorialSearch {
+        results: [Editorial]
+        count: Int!
+    }
     type Query {
         books(filter: Filter, exact: [Exact]): BookSearch
         book(_id: ID!): Book
@@ -81,6 +93,8 @@ const typeDefs = `
         student(_id:ID!): Student
         lends(filter: Filter, exact: [Exact]): LendSearch
         lend(_id: ID!): Lend
+        editorials(filter: Filter, exact: [Exact]): EditorialSearch
+        editorial(_id: ID!): Editorial
     }
 
     input Exact {
@@ -105,13 +119,20 @@ const typeDefs = `
         deleteStudent(_id: ID!): ID
         createLend(lend: LendInput!): Lend
         deleteLend(_id: ID!): ID
+        createEditorial(editorial: EditorialInput!): Editorial
+        deleteEditorial(_id: ID!): ID
     }
     input BookInput {
         _id: ID
         name: String
         category: ID
         author: ID
+        editorial: ID
         count: Int
+    }
+    input EditorialInput {
+        _id: ID
+        name: String
     }
     input AuthorInput {
         _id: ID

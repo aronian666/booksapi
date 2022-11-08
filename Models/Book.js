@@ -15,6 +15,11 @@ const bookSchema = new mongoose.Schema({
         required: true,
         ref: "Category"
     },
+    editorial: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "Editorial"
+    },
     status: {
         type: String,
         required: true,

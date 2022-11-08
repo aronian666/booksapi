@@ -1,11 +1,11 @@
 import mongoose from "mongoose"
 export async function getData({ search = "", page = 0, asc = 1, sort = "name", limit = 10 }, exact = []) {
     const n = {
-        Book: ["author", "category"],
+        Book: ["author", "category", "editorial"],
         Lend: ["book", "student"]
     }
     const a = {
-        Book: ["author.name", "category.name"],
+        Book: ["author.name", "category.name", "editorial.name"],
         Lend: ["book.name", "student.name", "status"]
     }
     const regExp = new RegExp(search, "i")
