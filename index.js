@@ -27,9 +27,9 @@ const typeDefs = `
         editorial: Editorial
         status: String
         lends: LendSearch
+        position: Int
         createdAt: String
         updatedAt: String
-
     }
     type Category {
         _id: ID
@@ -129,6 +129,7 @@ const typeDefs = `
         author: AuthorInput
         editorial: EditorialInput
         count: Int
+        position: Int
     }
     input EditorialInput {
         _id: ID

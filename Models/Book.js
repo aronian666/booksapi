@@ -31,6 +31,10 @@ const bookSchema = new mongoose.Schema({
         required: true,
         default: 1
     },
+    position: {
+        type: Number,
+        default: 1
+    }
 }, { timestamps: true })
 
 bookSchema.pre('save', function (next) {
