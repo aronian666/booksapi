@@ -14,9 +14,10 @@ const studentSchema = new mongoose.Schema({
         default: 1
     },
     nivel: {
-        type: Number,
+        type: String,
         required: true,
-        default: 0
+        enum: ["Primaria", "Secundaria"],
+        default: "Primaria"
     }
 }, { timestamps: true })
 

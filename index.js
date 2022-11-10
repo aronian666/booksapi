@@ -6,54 +6,54 @@ import resolvers from './resolvers/index.js';
 
 const typeDefs = `
     type Author {
-        _id: ID!
-        name: String!
+        _id: ID
+        name: String
         books: BookSearch
         createdAt: String
         updatedAt: String
     }
     type Editorial {
-        _id: ID!
-        name: String!
+        _id: ID
+        name: String
         createdAt: String
         updatedAt: String
     }
     type Book {
-        _id: ID!
-        name: String!
-        author: Author!
-        count: Int!
-        category: Category!
+        _id: ID
+        name: String
+        author: Author
+        count: Int
+        category: Category
         editorial: Editorial
-        status: String!
+        status: String
         lends: LendSearch
         createdAt: String
         updatedAt: String
 
     }
     type Category {
-        _id: ID!
-        name: String!
+        _id: ID
+        name: String
         books: BookSearch
         createdAt: String
         updatedAt: String
     }
     type Lend {
         _id: ID
-        student: Student!
-        book: Book!
+        student: Student
+        book: Book
         returnDate: String
-        status: String!
+        status: String
         message: String
         createdAt: String
         updatedAt: String
     }
     type Student {
         _id: ID!
-        name: String!
-        last: String!
-        grade: Int!
-        nivel: Int!
+        name: String
+        last: String
+        grade: Int
+        nivel: String
         lends: LendSearch
         createdAt: String
         updatedAt: String
@@ -125,9 +125,9 @@ const typeDefs = `
     input BookInput {
         _id: ID
         name: String
-        category: ID
-        author: ID
-        editorial: ID
+        category: CategoryInput
+        author: AuthorInput
+        editorial: EditorialInput
         count: Int
     }
     input EditorialInput {
@@ -147,12 +147,12 @@ const typeDefs = `
         name: String
         last: String
         grade: Int
-        nivel: Int
+        nivel: String
     }
     input LendInput {
         _id: ID
-        book: ID
-        student: ID
+        book: BookInput
+        student: StudentInput
         returnDate: String
         message: String
         status: String

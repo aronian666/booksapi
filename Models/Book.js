@@ -42,7 +42,7 @@ bookSchema.pre('save', function (next) {
 bookSchema.pre("findOneAndUpdate", function (next) {
     if (this._update.name) this._update.name = this._update.name[0].toUpperCase() + this._update.name.slice(1, this._update.name.length)
     if (this._update.count <= 0) this._update.status = "Agotado"
-    else this._update.status = "Disponible"
+    if (this._update.count > 0) this._update.status = "Disponible"
     next()
 })
 

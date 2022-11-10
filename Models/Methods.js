@@ -1,4 +1,8 @@
 import mongoose from "mongoose"
+const getPrural = (noun) => {
+    if (/y$/.test(noun)) return noun.replace(/y$/, "ies")
+    return noun + "s"
+}
 export async function getData({ search = "", page = 0, asc = 1, sort = "name", limit = 10 }, exact = []) {
     const n = {
         Book: ["author", "category", "editorial"],
@@ -15,10 +19,7 @@ export async function getData({ search = "", page = 0, asc = 1, sort = "name", l
         else object[property.name] = property.value
     }
     const nested = (n[this.modelName] || []).map(n => {
-        let prural = n
-        if (/y$/.test(n)) prural = prural.replace(/y$/, "ies")
-        else prural += "s"
-        return [{ $lookup: { from: prural, localField: n, foreignField: "_id", as: n } }, { $unwind: `$${n}` }]
+        return [{ $lookup: { from: getPrural(n), localField: n, foreignField: "_id", as: n } }, { $unwind: `$${n}` }]
     }).flat()
     const atrributes = (a[this.modelName] || []).map(attribute => ({ [attribute]: regExp }))
     let $match = { ...object, $or: [{ name: regExp }, ...atrributes] }
@@ -45,8 +46,16 @@ export async function getData({ search = "", page = 0, asc = 1, sort = "name", l
 }
 
 
-async function create(_, props) {
+async function create(_, props, models) {
     let object = Object.values(props)[0]
+    for (let key in object) {
+        if (typeof object[key] === "object") {
+            if (!object[key]._id) {
+                const model = models.find(m => m.modelName.toLowerCase() === key)
+                object[key] = await model.create(object[key])
+            }
+        }
+    }
     if (object._id) object = await this.findByIdAndUpdate(object._id, object, { new: true })
     else object = await this.create(object)
     const { count, results } = await getData.bind(this)({}, [{ name: "_id", value: object._id }])
@@ -70,7 +79,7 @@ export function assingResolvers(...models) {
         querys: {}
     }
     for (let model of models) {
-        resolvers.mutations[`create${model.modelName}`] = create.bind(model)
+        resolvers.mutations[`create${model.modelName}`] = (_, props) => create.bind(model)(_, props, models)
         resolvers.mutations[`delete${model.modelName}`] = del.bind(model)
         resolvers.querys[`${model.modelName.toLowerCase()}s`] = prural.bind(model)
         resolvers.querys[`${model.modelName.toLowerCase()}`] = singular.bind(model)
