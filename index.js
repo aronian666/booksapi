@@ -172,7 +172,7 @@ const typeDefs = `
     }
 `
 const server = new ApolloServer({ typeDefs, resolvers })
-mongoose.connect("mongodb+srv://aronian666:miqevid21@cluster0.h2xqh.mongodb.net/booksapi?retryWrites=true&w=majority").then((db) => {
+mongoose.connect("mongodb+srv://aronian666:miqevid21@cluster0.h2xqh.mongodb.net/books?retryWrites=true&w=majority").then((db) => {
     console.log("connect to db")
     startStandaloneServer(server).then(reponse => console.log("ready at: ", reponse.url))
 })
