@@ -27,6 +27,8 @@ const typeDefs = `
         editorial: Editorial
         status: String
         lends: LendSearch
+        isbn: String
+        image: String
         position: Int
         createdAt: String
         updatedAt: String
@@ -121,6 +123,16 @@ const typeDefs = `
         deleteLend(_id: ID!): ID
         createEditorial(editorial: EditorialInput!): Editorial
         deleteEditorial(_id: ID!): ID
+        createByIsbn(book: IsbnInput!): Book
+    }
+    input IsbnInput {
+        name: String
+        author: AuthorInput
+        isbn: String
+        count: Int
+        image: String
+        category: CategoryInput
+        editorial: EditorialInput
     }
     input BookInput {
         _id: ID
@@ -160,7 +172,7 @@ const typeDefs = `
     }
 `
 const server = new ApolloServer({ typeDefs, resolvers })
-mongoose.connect("mongodb+srv://aronian666:miqevid21@cluster0.h2xqh.mongodb.net/books?retryWrites=true&w=majority").then((db) => {
+mongoose.connect("mongodb+srv://aronian666:miqevid21@cluster0.h2xqh.mongodb.net/booksapi?retryWrites=true&w=majority").then((db) => {
     console.log("connect to db")
     startStandaloneServer(server).then(reponse => console.log("ready at: ", reponse.url))
 })
