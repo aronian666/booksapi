@@ -133,6 +133,7 @@ const typeDefs = `
         image: String
         category: CategoryInput
         editorial: EditorialInput
+        position: Int
     }
     input BookInput {
         _id: ID
