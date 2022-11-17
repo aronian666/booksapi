@@ -15,6 +15,7 @@ const lendSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
+    returnDay: Date,
     status: {
         type: String,
         required: true,

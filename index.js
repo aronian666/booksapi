@@ -45,6 +45,7 @@ const typeDefs = `
         student: Student
         book: Book
         returnDate: String
+        returnDay: String
         status: String
         message: String
         createdAt: String
@@ -168,6 +169,7 @@ const typeDefs = `
         book: BookInput
         student: StudentInput
         returnDate: String
+        returnDay: String
         message: String
         status: String
     }
